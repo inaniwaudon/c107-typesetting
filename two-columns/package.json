@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "compile": "tsx src/index1.ts && tsx src/index2.ts && tsx src/index3.ts && tsx src/index4.ts && tsx src/index5.ts",
+    "compile5": "tsx src/index5.ts"
+
+  },
+  "dependencies": {
+    "canvas": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "tsx": "^4.21.0"
+  }
+}

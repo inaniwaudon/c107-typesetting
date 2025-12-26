@@ -1,0 +1,17 @@
+# LaTeX
+*.aux
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+*.png
+
+eng.traineddata
+
+node_modules
+temp
+latex1
+latex2
+latex-a
+latex-b

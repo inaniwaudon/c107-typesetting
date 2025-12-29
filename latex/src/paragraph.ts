@@ -34,7 +34,7 @@ const main = async () => {
 
   // 元々の行数を算出
   const worker = await createWorker("eng");
-  typesetLaTeX(words, "latex");
+  typesetLaTeX([{ words }], "latex");
   const originalLines = await countLines("latex", worker);
 
   const resultWords = structuredClone(words);
@@ -54,7 +54,7 @@ const main = async () => {
         fs.mkdirSync(dir);
         fs.copyFileSync("latex/template.tex", `${dir}/template.tex`);
 
-        typesetLaTeX(filteredWords, dir);
+        typesetLaTeX([{ words: filteredWords }], dir);
         const lines = await countLines(dir, worker);
         if (lines < originalLines) {
           // 短い単語で削除できる場合はより赤く
@@ -69,7 +69,7 @@ const main = async () => {
   await worker.terminate();
 
   // 結果をコンパイル
-  typesetLaTeX(resultWords, "latex");
+  typesetLaTeX([{ words: resultWords }], "latex");
 };
 
 main();

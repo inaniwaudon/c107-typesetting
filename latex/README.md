@@ -6,4 +6,4 @@ LaTeX において、どの単語を削れば行を削ることができるか�
 
 1. `yarn` を実行してパッケージをインストールする
 2. `main.ts` の `text`, `n` を書き換える
-3. `yarn run start` を実行する
+3. `yarn run paragraph` を実行する

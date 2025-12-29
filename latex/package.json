@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "tsx main.ts"
+    "paragraph": "tsx src/paragraph.ts",
+    "page": "tsx src/page.ts"
   },
   "devDependencies": {
     "@types/node": "^25.0.2",
@@ -11,6 +12,7 @@
     "@napi-rs/canvas": "^0.1.84",
     "p-limit": "^7.2.0",
     "pdf-lib": "^1.17.1",
+    "sharp": "^0.34.5",
     "tesseract.js": "^7.0.0"
   }
 }

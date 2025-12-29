@@ -10,21 +10,37 @@ export interface Word {
 
 /**
  * LaTeX ファイルに文章を挿入してコンパイルする
- * @param words 文章
+ * @param paragraphs 段落の配列
  * @param dir ディレクトリ
  */
-export const typesetLaTeX = (words: Word[], dir: string) => {
+export const typesetLaTeX = (
+  paragraphs: { words: Word[]; section?: boolean }[],
+  dir: string
+) => {
   const latexTemplateFile = `${dir}/template.tex`;
   const latexFile = `${dir}/main.tex`;
 
-  const wordBody = words.map(({ text, colorRatio }) => {
-    if (colorRatio === 0) {
-      return text;
+  let text = "";
+  for (const paragraph of paragraphs) {
+    if (paragraph.section) {
+      text += `\\section{${paragraph.words.map(({ text }) => text).join(" ")}}`;
+    } else {
+      text += paragraph.words
+        .map(({ text, colorRatio }) => {
+          if (colorRatio === 0) {
+            return text;
+          }
+          return `\\textcolor[rgb]{${
+            Math.floor(colorRatio * 10) / 10
+          },0,0}{${text}}`;
+        })
+        .join(" ");
     }
-    return `\\textcolor[rgb]{${Math.floor(colorRatio * 10) / 10},0,0}{${text}}`;
-  });
+    text += "\n\n";
+  }
+
   const template = fs.readFileSync(latexTemplateFile, "utf-8");
-  const document = template.replace("$body", wordBody.join(" "));
+  const document = template.replace("$body", text);
   fs.writeFileSync(latexFile, document);
   execSync(`latexmk main.tex`, { cwd: dir });
 };
@@ -44,7 +60,7 @@ export const saveFirstPageImage = async (dir: string) => {
   const doc = await loadingTask.promise;
   const page = await doc.getPage(1);
 
-  // 画像をとして保存
+  // 画像として保存
   const viewport = page.getViewport({ scale: 2.0 });
   const canvas = createCanvas(viewport.width, viewport.height);
   canvas.width = viewport.width;

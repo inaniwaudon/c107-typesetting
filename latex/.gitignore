@@ -8,6 +8,7 @@
 *.png
 
 eng.traineddata
+latex/main.tex
 
 node_modules
 temp

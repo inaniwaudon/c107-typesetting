@@ -9,4 +9,4 @@
 
 ## 正誤表
 
-[errata.md](../errata.md) をご参照ください。
+[errata.md](./errata.md) をご参照ください。
